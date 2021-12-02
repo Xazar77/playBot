@@ -1,24 +1,39 @@
-"use strict";
+'use strict';
 
 
 
 function playBot() {
+    let count = 10;
+    // let random = 50; // для теста
+    let random = Math.floor(Math.random() * (100 - 1) + 1);
+    console.log(random);
+
     function gameIteration() {
-        const random = 10;
-        let value = prompt('Число от 1 до 100')
+
+
+        let value = prompt('Введите число от 1 до 100');
+
         value = typeof value === 'string' ? Number(value) : null;
+
+
         if (value === random) {
-            alert("Поздравляю, Вы угадали!!!");
-        } else if (value === null) {
-            alert("Игра окончена");
+            alert('Поздравляю, Вы угадали!!!.Хотели бы сыграть еще?');
+            gameIteration();
+        } else if (count < 1) {
+            alert('Попытки закончились, хотите сыграть еще?');
+            playBot();
+        } else if (value == null) {
+            alert("Игра окончена. До встречи!");
         } else if (random < value) {
-            alert("Загаданное число меньше. Введите новое число.");
+            alert(`Загаданное число меньше, осталось попыток ${count}. Введите новое число.`);
+            count--;
             gameIteration();
         } else if (random > value) {
-            alert("Загаданное число больше. Введите новое число.");
+            alert(`Загаданное число больше, осталось попыток ${count}. Введите новое число.`);
+            count--;
             gameIteration();
-        } else if (typeof value !== Number) {
-            alert("Введи число!");
+        } else if (typeof value !== Number || !value.trim()) {
+            alert('Введите число!');
             gameIteration();
         }
     }
